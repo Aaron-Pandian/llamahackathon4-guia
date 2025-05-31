@@ -1,2 +1,3 @@
-# llamahackathon4-gias
-Team repository for GIAS, an immigration support application designed to guide individuals though complex US legal processes using open source information. 
+# llamahackathon4-guia
+
+Team repository for GIAS, an **immigration support** AI assistant designed to guide individuals though complex US legal processes using **open source information**. 

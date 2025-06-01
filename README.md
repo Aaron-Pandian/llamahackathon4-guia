@@ -50,7 +50,7 @@ _Current codebase showcases a minimum viable product. The demonstration shows ho
 2. Pip install dependancies in the Python scripts
 3. Navigate to the Node.JS directory
 4. Install dependencies
-5. Update the API Keys for the environment variable 
+5. Update the API Keys for the environment variable - .env file in the root of the Next js folder
 6. Start the development server
 7. Open your browser and visit: [http://localhost:3000](http://localhost:3000)
 8. Download the [AR-11 Form](https://github.com/Aaron-Pandian/llamahackathon4-guia/blob/main/metadata/ar-11.pdf) here
@@ -58,6 +58,13 @@ _Current codebase showcases a minimum viable product. The demonstration shows ho
 10. Go through the conversation process, answering information that Llama asks: _if you have questions about how to answer bring it up in conversation_
 11. Once the model verifies you have finished, hit complete to download your filled form
 12. The completed form presented is an example 
+
+### Example .env 
+LLAMA_API_KEY=
+CLOUDINARY_CLOUD_NAME=
+CLOUDINARY_API_KEY=
+CLOUDINARY_API_SECRET=
+TAVUS_API_KEY=
 
 ### Future Work 
 

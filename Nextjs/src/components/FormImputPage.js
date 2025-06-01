@@ -3,6 +3,7 @@ import languages from "../data/languages.json"; // Import the JSON file
 import FileUpload from "./FileUpload";
 import UserFormChat from "./UserFormChat";
 import translations from "../data/translations.json";
+import DownloadButton from "./DownloadButton";
 
 // Map language names to language codes
 const languageCodeMap = {
@@ -60,9 +61,36 @@ const FormImputPage = () => {
       content: selectedLanguage ? `Language: ${selectedLanguage}` : "",
       files: uploadedFiles.length > 0 ? uploadedFiles : undefined,
     };
+    const promt_message = `respond in ${selectedLanguage} Short 50-character summary of the uploaded form goes here.
+
+Let's go through the form together, field by field. dont list out all the fields before you start to ask each one only when the user is done relay the answers to them
+There are [X] fields that need to be filled out.
+If you need extra help, click the video icon at the bottom of the page.
+
+Please answer each question one at a time.
+I will ask for the next piece of information after you answer the current one.
+I’ll remember your answers and help you complete the form step by step.
+
+Once we finish all the fields, I’ll show you a clean table with everything you entered in the same order as we filled them out.
+
+Let’s begin:
+
+Field 1 Name: [Ask user the question based on the field name]
+Wait for user input
+Field 2 Name: [Ask the next question]
+…
+[Continue until all fields in form are complete]`;
 
     const payload = {
-      messages: [userMessage],
+      messages: [
+        userMessage,
+        {
+          role: "assistant",
+          temperature: 0,
+          topP: 1,
+          content: promt_message,
+        },
+      ],
     };
 
     try {
@@ -156,12 +184,15 @@ const FormImputPage = () => {
           </div>
         </>
       ) : (
-        <UserFormChat
-          files={files}
-          selectedLanguage={selectedLanguage}
-          languageCodeMap={languageCodeMap}
-          onExit={() => setShowChat(false)}
-        />
+        <>
+          <UserFormChat
+            files={files}
+            selectedLanguage={selectedLanguage}
+            languageCodeMap={languageCodeMap}
+            onExit={() => setShowChat(false)}
+          />
+          <DownloadButton />
+        </>
       )}
     </div>
   );

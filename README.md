@@ -32,6 +32,8 @@ Leveraging cutting-edge open-source AI, GUIA delivers accessible, step-by-step, 
 5. **GUIA auto-fills the PDF with the user’s answers**
 6. **User downloads completed, ready-to-submit form**
 
+---
+
 ## 🧩 Tech Stack
 
 - [Llama (Meta)](https://ai.meta.com/llama/) for conversational AI
@@ -45,11 +47,10 @@ Leveraging cutting-edge open-source AI, GUIA delivers accessible, step-by-step, 
 ## 🙏 Acknowledgements
 
 - [Meta Llama](https://ai.meta.com/llama/)
-- [USCIS.gov](https://uscis.gov/) (official forms and resources)
-- The open source community and all contributors!
+- [USCIS.gov](https://uscis.gov/) (Official Forms and Resources)
 
 ---
 
 <p align="center">
-  <em>GUIA: Empowering Immigrants, One Form at a Time.</em>
+  <em>GUIA: Empowering Immigrants, One at a Time.</em>
 </p>

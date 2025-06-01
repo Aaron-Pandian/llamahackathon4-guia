@@ -50,6 +50,7 @@ _Current codebase showcases a minimum viable product. The demonstration shows ho
 2. Deploy React.JS
 
 **Future Work** 
+
 Given our foundation, we plan to create an automated pipline for instruction documentation present on the [USCIS](https://uscis.gov/) website. Using this Llama will be able to provdide official, more detailed instruction on filling out immigration documentation. 
 
 To further extend application function, we will integrate prompted web search allowing the LLM to gain added context to questions that come up in conversation. This will also allow Llama to answer general questions about the immigration process, if forms are not the point of confusion for an individual. 

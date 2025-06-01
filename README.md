@@ -23,14 +23,23 @@ Leveraging cutting-edge open-source AI, GUIA delivers accessible, step-by-step, 
 
 ## 🖥️ User Flow
 
-<img src="https://github.com/Aaron-Pandian/llamahackathon4-guia/raw/main/metadata/userflow.png" alt="Userflow Diagram" width="300">
-
-1. **User uploads an official immigration PDF (e.g., AR-11)**
-2. **GUIA analyzes the form fields**
-3. **GUIA interviews the user, step-by-step, with questions tailored to the form**
-4. **User provides answers in conversation**
-5. **GUIA auto-fills the PDF with the user’s answers**
-6. **User downloads completed, ready-to-submit form**
+<table>
+  <tr>
+    <td width="50%" align="center" valign="top">
+      <img src="https://github.com/Aaron-Pandian/llamahackathon4-guia/raw/main/metadata/userflow.png" alt="Userflow Diagram" width="100%">
+    </td>
+    <td width="50%" valign="top">
+      <ol>
+        <li><b>User uploads an official immigration PDF (e.g., AR-11)</b></li>
+        <li><b>GUIA analyzes the form fields</b></li>
+        <li><b>GUIA interviews the user, step-by-step, with questions tailored to the form</b></li>
+        <li><b>User provides answers in conversation</b></li>
+        <li><b>GUIA auto-fills the PDF with the user’s answers</b></li>
+        <li><b>User downloads completed, ready-to-submit form</b></li>
+      </ol>
+    </td>
+  </tr>
+</table>
 
 ---
 

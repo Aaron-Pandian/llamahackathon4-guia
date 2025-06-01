@@ -30,12 +30,12 @@ Leveraging cutting-edge open-source AI, GUIA delivers accessible, step-by-step, 
     </td>
     <td width="70%" valign="top">
       <ol>
-        <li><b>User uploads an official immigration PDF (e.g., AR-11)</b></li>
-        <li><b>GUIA analyzes the form fields</b></li>
-        <li><b>GUIA interviews the user, step-by-step, with questions tailored to the form</b></li>
-        <li><b>User provides answers in conversation</b></li>
-        <li><b>GUIA auto-fills the PDF with the user’s answers</b></li>
-        <li><b>User downloads completed, ready-to-submit form</b></li>
+        <li>User <b>uploads an official immigration PDF</b> (e.g., AR-11)</li>
+        <li>GUIA <b>analyzes</b> the form fields</li>
+        <li>GUIA interviews the user, step-by-step, with questions <b>tailored to the form</b></li>
+        <li>User provides answers <b>in conversation</b></li>
+        <li>GUIA <b>auto-fills the PDF</b> with the user’s answers</li>
+        <li>User <b>downloads completed, ready-to-submit form</b></li>
       </ol>
     </td>
   </tr>

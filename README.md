@@ -71,7 +71,9 @@ CLOUDINARY_API_SECRET=
 
 TAVUS_API_KEY=
 
-### Future Work 
+---
+
+## 🔜 Future Work 
 
 Given our foundation, we plan to create an automated pipline for instruction documentation present on the [USCIS](https://uscis.gov/) website. Using this Llama will be able to provdide official, more detailed instruction on filling out immigration documentation. For this, we collect the Instruction PDFs alongside metadata for all forms on the website and house the structured data (as a list of metadata and links to each page of a PDF as images) in Firebase. We are developing API calls that can search our database, retrieve relavent information, and converse with the user using PDF pages converted to images. 
 

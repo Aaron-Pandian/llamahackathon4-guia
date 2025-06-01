@@ -1,9 +1,8 @@
 "use client";
 
 import { useAuth } from "@/context/AuthContext";
-import Navigation from "@/components/Navigation";
-import ChatInterface from "@/components/ChatInterface";
-import LoginPage from "@/components/LoginPage";
+
+import FormImputPage from "./FormImputPage";
 
 export default function ClientWrapper() {
   const { user, loading } = useAuth();
@@ -16,14 +15,9 @@ export default function ClientWrapper() {
     );
   }
 
-  if (!user) {
-    return <LoginPage />;
-  }
-
   return (
-    <div className="min-h-screen bg-gray-900">
-      <Navigation />
-      <ChatInterface />
+    <div className="min-h-screen flex items-center justify-center pt-20">
+      <FormImputPage />
     </div>
   );
 }

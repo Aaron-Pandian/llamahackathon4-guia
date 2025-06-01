@@ -105,7 +105,7 @@ export default function FileUpload({ onFileUploaded }) {
         
         <label
           htmlFor="file-upload"
-          className="cursor-pointer flex flex-col items-center space-y-2"
+          className="cursor-pointer flex flex-col items-center"
         >
           <Upload className="w-8 h-8 text-gray-400" />
           <div className="text-sm text-gray-600 dark:text-gray-400">

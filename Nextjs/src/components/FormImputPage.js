@@ -2,35 +2,36 @@ import React, { useState } from "react";
 import languages from "../data/languages.json"; // Import the JSON file
 import FileUpload from "./FileUpload";
 import UserFormChat from "./UserFormChat";
-import translations from '../data/translations.json';
+import translations from "../data/translations.json";
 
 // Map language names to language codes
 const languageCodeMap = {
-  "English": "en",
-  "Spanish": "es",
-  "French": "fr",
-  "German": "de",
-  "Chinese": "zh",
-  "Japanese": "ja",
-  "Korean": "ko",
-  "Hindi": "hi",
-  "Arabic": "ar",
-  "Portuguese": "pt",
-  "Russian": "ru",
-  "Italian": "it",
-  "Dutch": "nl",
-  "Swedish": "sv",
-  "Turkish": "tr",
-  "Greek": "el",
-  "Hebrew": "iw",
-  "Thai": "th",
-  "Vietnamese": "vi",
-  "Polish": "pl"
+  English: "en",
+  Spanish: "es",
+  French: "fr",
+  German: "de",
+  Chinese: "zh",
+  Japanese: "ja",
+  Korean: "ko",
+  Hindi: "hi",
+  Arabic: "ar",
+  Portuguese: "pt",
+  Russian: "ru",
+  Italian: "it",
+  Dutch: "nl",
+  Swedish: "sv",
+  Turkish: "tr",
+  Greek: "el",
+  Hebrew: "iw",
+  Thai: "th",
+  Vietnamese: "vi",
+  Polish: "pl",
 };
 
 const FormImputPage = () => {
   const [selectedLanguage, setSelectedLanguage] = useState("");
   const [textInput, setTextInput] = useState("");
+  const [files, setFiles] = useState([]);
   const [uploadedFiles, setUploadedFiles] = useState([]);
   const [showChat, setShowChat] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -41,7 +42,7 @@ const FormImputPage = () => {
   };
 
   const handleFileUploaded = (fileData) => {
-    setUploadedFiles(prev => [...prev, fileData]);
+    setUploadedFiles((prev) => [...prev, fileData]);
   };
 
   const handleTextInputChange = (event) => {
@@ -49,21 +50,61 @@ const FormImputPage = () => {
     console.log("Text input:", event.target.value);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     setIsSubmitting(true);
     console.log("Form submitted with language:", selectedLanguage);
     console.log("Uploaded files:", uploadedFiles);
-    
-    // Simulate form submission
-    setTimeout(() => {
-      setIsSubmitting(false);
+
+    const userMessage = {
+      role: "user",
+      content: selectedLanguage ? `Language: ${selectedLanguage}` : "",
+      files: uploadedFiles.length > 0 ? uploadedFiles : undefined,
+    };
+
+    const payload = {
+      messages: [userMessage],
+    };
+
+    try {
+      const response = await fetch("/api/chat", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to get response from LLaMA");
+      }
+
+      const data = await response.json();
+
+      const assistantMessage = {
+        role: "assistant",
+        content: data.choices[0].message.content,
+      };
+
+      // Update your state as needed
+      setFiles([userMessage, assistantMessage]);
       setShowChat(true);
-    }, 1000);
+    } catch (error) {
+      console.error("Error:", error);
+      setFiles([
+        userMessage,
+        {
+          role: "assistant",
+          content: "Sorry, I encountered an error. Please try again.",
+        },
+      ]);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
     <div className="p-5 max-w-[980px] mx-auto font-mono text-center">
-      {!showChat ? (
+      {!showChat && !files.length ? (
         <>
           {/* Language Input Field */}
           <div className="my-5 flex items-center justify-center">
@@ -89,16 +130,14 @@ const FormImputPage = () => {
           {/* Text Area */}
           <div className="w-full">
             <h2 className="font-mono text-6xl">
-              {selectedLanguage 
-                ? translations[languageCodeMap[selectedLanguage]] || translations["en"] 
+              {selectedLanguage
+                ? translations[languageCodeMap[selectedLanguage]] ||
+                  translations["en"]
                 : translations["en"]}
             </h2>
           </div>
-
           <div className="my-5 flex flex-col items-center">
-            <label className="mb-2.5">
-              Upload your file:
-            </label>
+            <label className="mb-2.5">Upload your file:</label>
             <div className="flex justify-center w-full">
               <FileUpload onFileUploaded={handleFileUploaded} />
             </div>
@@ -107,7 +146,9 @@ const FormImputPage = () => {
           <div className="mt-5 space-y-3">
             <button
               onClick={handleSubmit}
-              disabled={isSubmitting}
+              disabled={
+                isSubmitting || !selectedLanguage || !uploadedFiles.length
+              }
               className="px-4 py-2 bg-black text-white rounded hover:bg-gray-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {isSubmitting ? "Submitting..." : "Submit"}
@@ -115,8 +156,9 @@ const FormImputPage = () => {
           </div>
         </>
       ) : (
-        <UserFormChat 
-          selectedLanguage={selectedLanguage} 
+        <UserFormChat
+          files={files}
+          selectedLanguage={selectedLanguage}
           languageCodeMap={languageCodeMap}
           onExit={() => setShowChat(false)}
         />

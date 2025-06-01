@@ -1,20 +1,25 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { Mic, Volume2, Plus, Send, Settings, Paperclip, X } from "lucide-react";
+import { Volume2, Send, X, VideoIcon } from "lucide-react";
 import FileUpload from "./FileUpload";
-import translations from '../data/translations.json';
+import translations from "../data/translations.json";
+import { startTavusSession } from "./startTavusSession";
+import TavusLoadingMessage from "./TavusLoadingMessage";
 
-const UserFormChat = ({ selectedLanguage, languageCodeMap, onExit }) => {
+const UserFormChat = ({ selectedLanguage, languageCodeMap, onExit, files }) => {
   // Get language code from selected language
-  const languageCode = selectedLanguage && languageCodeMap ? 
-    languageCodeMap[selectedLanguage] || "en" : "en";
+  const languageCode =
+    selectedLanguage && languageCodeMap
+      ? languageCodeMap[selectedLanguage] || "en"
+      : "en";
   const [message, setMessage] = useState("");
-  const [messages, setMessages] = useState([]);
+  const [messages, setMessages] = useState([...files]);
   const [isLoading, setIsLoading] = useState(false);
   const [showFileUpload, setShowFileUpload] = useState(false);
   const [attachedFiles, setAttachedFiles] = useState([]);
   const [progress, setProgress] = useState(0);
+  const [loadingTavus, setLoadingTavus] = useState(false);
 
   // Increase progress as user interacts with the chat
   useEffect(() => {
@@ -90,11 +95,23 @@ const UserFormChat = ({ selectedLanguage, languageCodeMap, onExit }) => {
     }
   };
 
+  if (loadingTavus) {
+    return (
+      <TavusLoadingMessage
+        selectedLanguage={selectedLanguage}
+        languageCodeMap={languageCodeMap}
+      />
+    );
+  }
+
   return (
-    <div className="p-5 mx-auto font-mono text-center flex flex-col cursor-[32px]" style={{ width: '766px', height: '460px' }}>
+    <div
+      className="p-5 mx-auto font-mono text-center flex flex-col cursor-[32px]"
+      style={{ width: "766px", height: "760px" }}
+    >
       {/* Exit Button */}
       <div className="absolute top-4 right-4 z-10">
-        <button 
+        <button
           onClick={onExit}
           className="p-3 bg-black text-white rounded-full hover:bg-gray-800 transition-colors shadow-lg"
         >
@@ -105,17 +122,16 @@ const UserFormChat = ({ selectedLanguage, languageCodeMap, onExit }) => {
       {/* Progress Bar */}
       <div className="w-full mb-6">
         <div className="w-full h-3 bg-gray-200 rounded-full overflow-hidden relative">
-          <div 
+          <div
             className="h-full bg-black transition-all duration-500 ease-in-out"
-            style={{ 
+            style={{
               width: `${progress}%`,
-              backgroundImage: 'repeating-linear-gradient(90deg, black, black 10px, white 10px, white 15px)'
+              backgroundImage:
+                "repeating-linear-gradient(90deg, black, black 10px, white 10px, white 15px)",
             }}
           ></div>
         </div>
-        <div className="text-sm text-gray-600 mt-1">
-          Progress: {progress}%
-        </div>
+        <div className="text-sm text-gray-600 mt-1">Progress: {progress}%</div>
       </div>
 
       {/* Chat Container */}
@@ -126,14 +142,15 @@ const UserFormChat = ({ selectedLanguage, languageCodeMap, onExit }) => {
             <div className="flex-1 flex flex-col items-center justify-center px-6">
               <div className="text-center mb-8">
                 <h1 className="text-3xl font-normal mb-2">
-                  {languageCode === "en" ? 
-                    "Let's start filling your form" : 
-                    translations[languageCode] || "Let's start filling your form"}
+                  {languageCode === "en"
+                    ? "Let's start filling your form"
+                    : translations[languageCode] ||
+                      "Let's start filling your form"}
                 </h1>
                 <p className="text-gray-600">
-                  {languageCode === "en" ? 
-                    "I'll guide you through the process step by step" : 
-                    ""}
+                  {languageCode === "en"
+                    ? "I'll guide you through the process step by step"
+                    : ""}
                 </p>
               </div>
             </div>
@@ -210,9 +227,7 @@ const UserFormChat = ({ selectedLanguage, languageCodeMap, onExit }) => {
           <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
             <div className="bg-white rounded-lg p-6 max-w-md w-full mx-4">
               <div className="flex justify-between items-center mb-4">
-                <h3 className="text-lg font-semibold">
-                  Upload Files
-                </h3>
+                <h3 className="text-lg font-semibold">Upload Files</h3>
                 <button
                   onClick={() => setShowFileUpload(false)}
                   className="text-gray-500 hover:text-gray-700"
@@ -259,11 +274,13 @@ const UserFormChat = ({ selectedLanguage, languageCodeMap, onExit }) => {
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
                     onKeyPress={handleKeyPress}
-                    placeholder={languageCode === "en" ? 
-                      "Type your response..." : 
-                      translations[languageCode] ? 
-                        `${translations[languageCode].split(" ")[0]}...` : 
-                        "Type your response..."}
+                    placeholder={
+                      languageCode === "en"
+                        ? "Type your response..."
+                        : translations[languageCode]
+                        ? `${translations[languageCode].split(" ")[0]}...`
+                        : "Type your response..."
+                    }
                     className="w-full bg-transparent text-gray-800 placeholder-gray-500 resize-none focus:outline-none text-lg min-h-[60px]"
                     rows={3}
                     disabled={isLoading}
@@ -275,7 +292,17 @@ const UserFormChat = ({ selectedLanguage, languageCodeMap, onExit }) => {
                     </div>
                     <div className="flex items-center gap-2">
                       <button className="p-2 hover:bg-gray-200 rounded-lg">
-                        <Mic className="w-5 h-5 text-gray-500" />
+                        <VideoIcon
+                          className="w-5 h-5 text-gray-500"
+                          onClick={() => {
+                            setLoadingTavus(true);
+                            startTavusSession({
+                              lang: selectedLanguage,
+                              messages,
+                              setLoadingTavus,
+                            });
+                          }}
+                        />
                       </button>
                       <button className="p-2 hover:bg-gray-200 rounded-lg">
                         <Volume2 className="w-5 h-5 text-gray-500" />

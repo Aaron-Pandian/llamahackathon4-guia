@@ -22,7 +22,7 @@ Leveraging cutting-edge open-source AI, GUIA delivers accessible, step-by-step, 
 ## 🖥️ User Flow
 
 <p align="center">
-  <img src="https://github.com/Aaron-Pandian/llamahackathon4-guia/raw/main/metadata/userflow.png" alt="Userflow Diagram" width="500">
+  <img src="https://github.com/Aaron-Pandian/llamahackathon4-guia/raw/main/metadata/userflow.png" alt="Userflow Diagram" width="300">
 </p>
 
 1. **User uploads an official immigration PDF (e.g., AR-11)**

@@ -60,10 +60,15 @@ _Current codebase showcases a minimum viable product. The demonstration shows ho
 12. The completed form presented is an example of what a completed form would look like: _if you want to explore the Python PDF Filler go to the script, and edit the answer information as per the fields listed, run the script to download an updated complete PDF_ 
 
 ### Example .env 
+
 LLAMA_API_KEY=
+
 CLOUDINARY_CLOUD_NAME=
+
 CLOUDINARY_API_KEY=
+
 CLOUDINARY_API_SECRET=
+
 TAVUS_API_KEY=
 
 ### Future Work 

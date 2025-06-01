@@ -103,5 +103,5 @@ Moving forward users will have their own profile where they can view conversatio
 ---
 
 <p align="center">
-  <em>GUIA: Empowering Immigrants, One at a Time.</em>
+  <em>GUIA: Empowering Immigrants, One At A Time.</em>
 </p>

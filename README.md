@@ -23,7 +23,9 @@ Leveraging cutting-edge open-source AI, GUIA delivers accessible, step-by-step, 
 
 ## 🖥️ User Flow
 
-<table>
+## 🖥️ User Flow
+
+<table border="0" cellspacing="0" cellpadding="0">
   <tr>
     <td width="50%" align="center" valign="top">
       <img src="https://github.com/Aaron-Pandian/llamahackathon4-guia/raw/main/metadata/userflow.png" alt="Userflow Diagram" width="60%">

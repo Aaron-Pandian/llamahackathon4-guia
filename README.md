@@ -57,7 +57,7 @@ _Current codebase showcases a minimum viable product. The demonstration shows ho
 9. Visit the local application on your localhost server and upload the form
 10. Go through the conversation process, answering information that Llama asks: _if you have questions about how to answer bring it up in conversation_
 11. Once the model verifies you have finished, hit complete to download your filled form
-12. The completed form presented is an example 
+12. The completed form presented is an example of what a completed form would look like: if you want to explore the Python PDF Filler go to the script, and edit the answer information as per the fields listed, run the script to download an updated complete PDF. 
 
 ### Example .env 
 LLAMA_API_KEY=

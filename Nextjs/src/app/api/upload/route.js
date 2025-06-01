@@ -1,9 +1,8 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import { v2 as cloudinary } from "cloudinary";
 
 export const runtime = "nodejs";
 
-// Configure Cloudinary
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
   api_key: process.env.CLOUDINARY_API_KEY,
@@ -19,21 +18,23 @@ export async function POST(request) {
       return NextResponse.json({ error: "No file provided" }, { status: 400 });
     }
 
-    // Convert file to buffer
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
 
-    // Upload to Cloudinary
+    const fileExt = file.name.split(".").pop()?.toLowerCase();
+    const publicId = `${Date.now()}-${file.name}`;
+
     const result = await new Promise((resolve, reject) => {
       cloudinary.uploader
         .upload_stream(
           {
-            resource_type: "auto", // Automatically detect file type
-            folder: "chatgpt-clone", // Optional: organize files in folders
-            public_id: `${Date.now()}-${file.name}`, // Unique filename
+            resource_type: "auto",
+            folder: "chatgpt-clone",
+            public_id: publicId,
           },
           (error, result) => {
             if (error) {
+              console.error("Cloudinary upload error:", error);
               reject(error);
             } else {
               resolve(result);
@@ -43,14 +44,20 @@ export async function POST(request) {
         .end(buffer);
     });
 
+    // If it's a PDF or Word doc, generate a preview of page 1
+    let previewImageUrl = null;
+    if (["pdf", "doc", "docx"].includes(fileExt)) {
+      previewImageUrl = cloudinary.url(result.public_id + ".png", {
+        page: 1,
+        transformation: [{ width: 1200 }],
+      });
+    }
+
     return NextResponse.json({
       success: true,
-      url: result.secure_url,
+      originalFileUrl: result.secure_url,
+      previewImageUrl,
       publicId: result.public_id,
-      format: result.format,
-      bytes: result.bytes,
-      width: result.width,
-      height: result.height,
     });
   } catch (error) {
     console.error("Upload error:", error);

@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { Upload, X, File, Image } from 'lucide-react';
+import { useState } from "react";
+import { Upload, X, File, Image } from "lucide-react";
 
 export default function FileUpload({ onFileUploaded }) {
   const [isDragging, setIsDragging] = useState(false);
@@ -32,54 +32,53 @@ export default function FileUpload({ onFileUploaded }) {
 
   const handleFiles = async (files) => {
     setUploading(true);
-    
+
     for (const file of files) {
       try {
         const formData = new FormData();
-        formData.append('file', file);
+        formData.append("file", file);
 
-        const response = await fetch('/api/upload', {
-          method: 'POST',
+        const response = await fetch("/api/upload", {
+          method: "POST",
           body: formData,
         });
 
         if (!response.ok) {
-          throw new Error('Upload failed');
+          throw new Error("Upload failed");
         }
 
         const result = await response.json();
-        
+
         const fileData = {
           id: result.publicId,
           name: file.name,
-          url: result.url,
-          type: file.type,
+          url: result.previewImageUrl || result.url, // ✅ Prefer image if available
+          type: result.previewImageUrl ? "image/png" : file.type, // ✅ Force image type for LLaMA
           size: result.bytes,
           width: result.width,
           height: result.height,
         };
 
-        setUploadedFiles(prev => [...prev, fileData]);
-        
+        setUploadedFiles((prev) => [...prev, fileData]);
+
         // Callback to parent component
         if (onFileUploaded) {
           onFileUploaded(fileData);
         }
-
       } catch (error) {
-        console.error('Error uploading file:', error);
+        console.error("Error uploading file:", error);
         alert(`Failed to upload ${file.name}`);
       }
     }
-    
+
     setUploading(false);
   };
 
   const removeFile = (fileId) => {
-    setUploadedFiles(prev => prev.filter(file => file.id !== fileId));
+    setUploadedFiles((prev) => prev.filter((file) => file.id !== fileId));
   };
 
-  const isImage = (type) => type?.startsWith('image/');
+  const isImage = (type) => type?.startsWith("image/");
 
   return (
     <div className="space-y-4">
@@ -87,8 +86,8 @@ export default function FileUpload({ onFileUploaded }) {
       <div
         className={`border-2 border-dashed rounded-lg p-6 text-center transition-colors ${
           isDragging
-            ? 'border-blue-400 bg-blue-50 dark:bg-blue-900/20'
-            : 'border-gray-300 dark:border-gray-600 hover:border-gray-400 dark:hover:border-gray-500'
+            ? "border-blue-400 bg-blue-50 dark:bg-blue-900/20"
+            : "border-gray-300 dark:border-gray-600 hover:border-gray-400 dark:hover:border-gray-500"
         }`}
         onDragOver={handleDragOver}
         onDragLeave={handleDragLeave}
@@ -102,7 +101,7 @@ export default function FileUpload({ onFileUploaded }) {
           id="file-upload"
           accept="image/*,video/*,audio/*,.pdf,.doc,.docx,.txt"
         />
-        
+
         <label
           htmlFor="file-upload"
           className="cursor-pointer flex flex-col items-center"
@@ -111,7 +110,7 @@ export default function FileUpload({ onFileUploaded }) {
           <div className="text-sm text-gray-600 dark:text-gray-400">
             <span className="font-medium text-blue-600 dark:text-blue-400">
               Click to upload
-            </span>{' '}
+            </span>{" "}
             or drag and drop
           </div>
           <div className="text-xs text-gray-500">
@@ -151,7 +150,7 @@ export default function FileUpload({ onFileUploaded }) {
                     <File className="w-5 h-5 text-gray-500" />
                   </div>
                 )}
-                
+
                 <div className="flex-1 min-w-0">
                   <p className="text-sm font-medium text-gray-900 dark:text-gray-100 truncate">
                     {file.name}
@@ -160,7 +159,7 @@ export default function FileUpload({ onFileUploaded }) {
                     {(file.size / 1024 / 1024).toFixed(2)} MB
                   </p>
                 </div>
-                
+
                 <button
                   onClick={() => removeFile(file.id)}
                   className="p-1 hover:bg-gray-200 dark:hover:bg-gray-700 rounded"

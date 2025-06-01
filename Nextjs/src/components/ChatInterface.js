@@ -12,7 +12,14 @@ export default function ChatInterface() {
   const [attachedFiles, setAttachedFiles] = useState([]);
 
   const handleFileUploaded = (fileData) => {
-    setAttachedFiles((prev) => [...prev, fileData]);
+    const isPdfWithPreview =
+      fileData.type === "application/pdf" && fileData.url.includes(".pdf");
+    const formattedFile = {
+      ...fileData,
+      url: isPdfWithPreview ? fileData.previewImageUrl : fileData.url,
+    };
+
+    setAttachedFiles((prev) => [...prev, formattedFile]);
     setShowFileUpload(false);
   };
 

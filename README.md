@@ -43,13 +43,28 @@ Leveraging cutting-edge open-source AI, GUIA delivers accessible, step-by-step, 
 
 ---
 
+## 🔧 How To Use
+_Current codebase showcases a minimum viable product. The demonstration shows how a user can upload an official immigration form to our application, receive specific instruction to fill it out, then provide a completed form ready for signiture and print._
+
+1. Clone Repository
+2. Deploy React.JS
+
+**Future Work** 
+Given our foundation, we plan to create an automated pipline for instruction documentation present on the [USCIS](https://uscis.gov/) website. Using this Llama will be able to provdide official, more detailed instruction on filling out immigration documentation. 
+
+To further extend application function, we will integrate prompted web search allowing the LLM to gain added context to questions that come up in conversation. This will also allow Llama to answer general questions about the immigration process, if forms are not the point of confusion for an individual. 
+
+---
+
 ## 🧩 Tech Stack
 
 - [Llama (Meta)](https://ai.meta.com/llama/) for conversational AI
 - [PDF.co](https://pdf.co/) for robust PDF/XFA form editing
-- [pypdf](https://pypdf.readthedocs.io/) for field extraction
-- [Python, Flask, React] (future roadmap)
-- [Docker] (for easy deployment, coming soon)
+- [Node.JS](https://pypdf.readthedocs.io/) for server side scripting
+- [React Native][https://reactnative.dev/] for native frontend rendering
+- [Python] (Flask for dynamic integration to front end, coming soon)
+- [Docker and Kubernetes] (for easy deployment, coming soon)
+- [Firebase] (secure database for internal data reference, coming soon)
 
 ---
 

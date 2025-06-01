@@ -55,7 +55,7 @@ _Current codebase showcases a minimum viable product. The demonstration shows ho
 7. Open your browser and visit: [http://localhost:3000](http://localhost:3000)
 8. Download the [AR-11 Form](https://github.com/Aaron-Pandian/llamahackathon4-guia/blob/main/metadata/ar-11.pdf) here
 9. Visit the local application on your localhost server and upload the form
-10. Go through the conversation process, answering information that Llama asks: __if you have questions about how to answer bring it up in conversation__
+10. Go through the conversation process, answering information that Llama asks: _if you have questions about how to answer bring it up in conversation_
 11. Once the model verifies you have finished, hit complete to download your filled form
 12. The completed form presented is an example 
 

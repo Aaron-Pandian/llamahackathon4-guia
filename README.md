@@ -47,7 +47,17 @@ Leveraging cutting-edge open-source AI, GUIA delivers accessible, step-by-step, 
 _Current codebase showcases a minimum viable product. The demonstration shows how a user can upload an official immigration form to our application, receive specific instruction to fill it out, then provide a completed form ready for signiture and print._
 
 1. Clone Repository
-2. Deploy React.JS
+2. Pip install dependancies in the Python scripts
+3. Navigate to the Node.JS directory
+4. Install dependencies
+5. Update the API Keys for the environment variable 
+6. Start the development server
+7. Open your browser and visit: [http://localhost:3000](http://localhost:3000)
+8. Download the [AR-11 Form](https://github.com/Aaron-Pandian/llamahackathon4-guia/blob/main/metadata/ar-11.pdf) here
+9. Visit the local application on your localhost server and upload the form
+10. Go through the conversation process, answering information that Llama asks: __if you have questions about how to answer bring it up in conversation__
+11. Once the model verifies you have finished, hit complete to download your filled form
+12. The completed form presented is an example 
 
 ### Future Work 
 

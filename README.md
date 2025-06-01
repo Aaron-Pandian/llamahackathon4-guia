@@ -28,7 +28,7 @@ Leveraging cutting-edge open-source AI, GUIA delivers accessible, step-by-step, 
     <td width="50%" align="center" valign="top">
       <img src="https://github.com/Aaron-Pandian/llamahackathon4-guia/raw/main/metadata/userflow.png" alt="Userflow Diagram" width="60%">
     </td>
-    <td width="70%" valign="top">
+    <td width="70%" valign="middle">
       <ol>
         <li>User <b>uploads an official immigration PDF</b> (e.g., AR-11)</li>
         <li>GUIA <b>analyzes</b> the form fields</li>

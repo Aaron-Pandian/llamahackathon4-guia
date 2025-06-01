@@ -23,8 +23,6 @@ Leveraging cutting-edge open-source AI, GUIA delivers accessible, step-by-step, 
 
 ## 🖥️ User Flow
 
-## 🖥️ User Flow
-
 <table border="0" cellspacing="0" cellpadding="0">
   <tr>
     <td width="50%" align="center" valign="top">

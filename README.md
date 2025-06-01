@@ -1,11 +1,13 @@
-<p align="center">
-  <img src="https://github.com/Aaron-Pandian/llamahackathon4-guia/raw/main/metadata/GUIA_Logo.png" alt="GUIA Logo" width="300">
-</p>
+<div align="center">
+
+<img src="https://github.com/Aaron-Pandian/llamahackathon4-guia/raw/main/metadata/GUIA_Logo.png" alt="GUIA Logo" width="300">
 
 # GUIA – Immigration Support AI Assistant
 
 **GUIA** is an AI-powered immigration assistant designed to help individuals navigate complex U.S. immigration and legal processes.  
 Leveraging cutting-edge open-source AI, GUIA delivers accessible, step-by-step, and context-aware support for filing forms, answering questions, and demystifying bureaucracy.
+
+</div>
 
 ---
 
@@ -21,9 +23,7 @@ Leveraging cutting-edge open-source AI, GUIA delivers accessible, step-by-step, 
 
 ## 🖥️ User Flow
 
-<p align="center">
-  <img src="https://github.com/Aaron-Pandian/llamahackathon4-guia/raw/main/metadata/userflow.png" alt="Userflow Diagram" width="300">
-</p>
+<img src="https://github.com/Aaron-Pandian/llamahackathon4-guia/raw/main/metadata/userflow.png" alt="Userflow Diagram" width="300">
 
 1. **User uploads an official immigration PDF (e.g., AR-11)**
 2. **GUIA analyzes the form fields**

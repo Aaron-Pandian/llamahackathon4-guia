@@ -7,6 +7,28 @@ import translations from "../data/translations.json";
 import { startTavusSession } from "./startTavusSession";
 import TavusLoadingMessage from "./TavusLoadingMessage";
 
+const promt_message = (
+  selectedLanguage
+) => `respond in ${selectedLanguage} Short 50-character summary of the uploaded form goes here.
+
+Let's go through the form together, field by field. dont list out all the fields before you start to ask each one only when the user is done relay the answers to them
+There are [X] fields that need to be filled out.
+If you need extra help, click the video icon at the bottom of the page.
+
+Please answer each question one at a time.
+I will ask for the next piece of information after you answer the current one.
+I’ll remember your answers and help you complete the form step by step.
+
+Once we finish all the fields, I’ll show you a clean table with everything you entered in the same order as we filled them out.
+
+Let’s begin:
+
+Field 1 Name: [Ask user the question based on the field name]
+Wait for user input
+Field 2 Name: [Ask the next question]
+…
+[Continue until all fields in form are complete]`;
+
 const UserFormChat = ({ selectedLanguage, languageCodeMap, onExit, files }) => {
   // Get language code from selected language
   const languageCode =
@@ -60,7 +82,13 @@ const UserFormChat = ({ selectedLanguage, languageCodeMap, onExit, files }) => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          messages: newMessages,
+          messages: [
+            ...newMessages,
+            {
+              role: "assistant",
+              content: promt_message(selectedLanguage),
+            },
+          ],
         }),
       });
 
@@ -120,7 +148,7 @@ const UserFormChat = ({ selectedLanguage, languageCodeMap, onExit, files }) => {
       </div>
 
       {/* Progress Bar */}
-      <div className="w-full mb-6">
+      {/* <div className="w-full mb-6">
         <div className="w-full h-3 bg-gray-200 rounded-full overflow-hidden relative">
           <div
             className="h-full bg-black transition-all duration-500 ease-in-out"
@@ -132,7 +160,7 @@ const UserFormChat = ({ selectedLanguage, languageCodeMap, onExit, files }) => {
           ></div>
         </div>
         <div className="text-sm text-gray-600 mt-1">Progress: {progress}%</div>
-      </div>
+      </div> */}
 
       {/* Chat Container */}
       <div className="flex-1 flex flex-col bg-white rounded-2xl shadow-lg overflow-hidden">
@@ -304,9 +332,9 @@ const UserFormChat = ({ selectedLanguage, languageCodeMap, onExit, files }) => {
                           }}
                         />
                       </button>
-                      <button className="p-2 hover:bg-gray-200 rounded-lg">
+                      {/* <button className="p-2 hover:bg-gray-200 rounded-lg">
                         <Volume2 className="w-5 h-5 text-gray-500" />
-                      </button>
+                      </button> */}
                       <button
                         onClick={sendMessage}
                         disabled={

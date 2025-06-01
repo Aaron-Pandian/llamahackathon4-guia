@@ -77,6 +77,7 @@ export default function FileUpload({ onFileUploaded }) {
           const pageImages = Array.from({ length: pageCount }, (_, i) => ({
             id: `${result.publicId}-page-${i + 1}`,
             name: `${file.name} (Pages - ${pageCount})`,
+            pdf: file,
             url: `https://res.cloudinary.com/fixmylife/image/upload/pg_${
               i + 1
             }/v1/${result.publicId}.png`,
@@ -94,6 +95,7 @@ export default function FileUpload({ onFileUploaded }) {
           const fileData = {
             id: result.publicId,
             name: file.name,
+            pdf: file,
             url: result.previewImageUrl || result.url,
             type: result.previewImageUrl ? "image/png" : file.type,
             size: result.bytes,
@@ -102,7 +104,7 @@ export default function FileUpload({ onFileUploaded }) {
           };
 
           setUploadedFiles((prev) => [...prev, fileData]);
-
+          console.log(fileData);
           if (onFileUploaded) {
             onFileUploaded(fileData);
           }
@@ -179,38 +181,38 @@ export default function FileUpload({ onFileUploaded }) {
           </h4>
           <div className="space-y-2">
             {/* {uploadedFiles.map((file) => ( */}
-              <div
-                key={uploadedFiles[0].id}
-                className="flex items-center space-x-3 p-3 bg-gray-50 dark:bg-gray-800 rounded-lg"
-              >
-                {isImage(uploadedFiles[0].type) ? (
-                  <img
-                    src={uploadedFiles[0].url}
-                    alt={uploadedFiles[0].name}
-                    className="w-10 h-10 object-cover rounded"
-                  />
-                ) : (
-                  <div className="w-10 h-10 bg-gray-200 dark:bg-gray-700 rounded flex items-center justify-center">
-                    <File className="w-5 h-5 text-gray-500" />
-                  </div>
-                )}
-
-                <div className="flex-1 min-w-0">
-                  <p className="text-sm font-medium text-gray-900 dark:text-gray-100 truncate">
-                    {uploadedFiles[0].name}
-                  </p>
-                  <p className="text-xs text-gray-500">
-                    {(uploadedFiles[0].size / 1024 / 1024).toFixed(2)} MB
-                  </p>
+            <div
+              key={uploadedFiles[0].id}
+              className="flex items-center space-x-3 p-3 bg-gray-50 dark:bg-gray-800 rounded-lg"
+            >
+              {isImage(uploadedFiles[0].type) ? (
+                <img
+                  src={uploadedFiles[0].url}
+                  alt={uploadedFiles[0].name}
+                  className="w-10 h-10 object-cover rounded"
+                />
+              ) : (
+                <div className="w-10 h-10 bg-gray-200 dark:bg-gray-700 rounded flex items-center justify-center">
+                  <File className="w-5 h-5 text-gray-500" />
                 </div>
+              )}
 
-                <button
-                  onClick={() => removeFile(uploadedFiles[0].id)}
-                  className="p-1 hover:bg-gray-200 dark:hover:bg-gray-700 rounded"
-                >
-                  <X className="w-4 h-4 text-gray-500" />
-                </button>
+              <div className="flex-1 min-w-0">
+                <p className="text-sm font-medium text-gray-900 dark:text-gray-100 truncate">
+                  {uploadedFiles[0].name}
+                </p>
+                <p className="text-xs text-gray-500">
+                  {(uploadedFiles[0].size / 1024 / 1024).toFixed(2)} MB
+                </p>
               </div>
+
+              <button
+                onClick={() => removeFile(uploadedFiles[0].id)}
+                className="p-1 hover:bg-gray-200 dark:hover:bg-gray-700 rounded"
+              >
+                <X className="w-4 h-4 text-gray-500" />
+              </button>
+            </div>
             {/* ))} */}
           </div>
         </div>

@@ -1,10 +1,14 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { Mic, Volume2, Plus, Send, Settings, Paperclip } from "lucide-react";
+import { Mic, Volume2, Plus, Send, Settings, Paperclip, X } from "lucide-react";
 import FileUpload from "./FileUpload";
+import translations from '../data/translations.json';
 
-const UserFormChat = () => {
+const UserFormChat = ({ selectedLanguage, languageCodeMap, onExit }) => {
+  // Get language code from selected language
+  const languageCode = selectedLanguage && languageCodeMap ? 
+    languageCodeMap[selectedLanguage] || "en" : "en";
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -87,13 +91,26 @@ const UserFormChat = () => {
   };
 
   return (
-    <div className="p-5 max-w-[980px] mx-auto font-mono text-center h-[calc(100vh-64px)] flex flex-col">
+    <div className="p-5 max-w-[490px] mx-auto font-mono text-center h-[calc(100vh-64px)] flex flex-col cursor-[32px]">
+      {/* Exit Button */}
+      <div className="absolute top-4 right-4 z-10">
+        <button 
+          onClick={onExit}
+          className="p-3 bg-black text-white rounded-full hover:bg-gray-800 transition-colors shadow-lg"
+        >
+          <X className="w-8 h-8" />
+        </button>
+      </div>
+
       {/* Progress Bar */}
       <div className="w-full mb-6">
-        <div className="w-full h-3 bg-gray-200 rounded-full overflow-hidden">
+        <div className="w-full h-3 bg-gray-200 rounded-full overflow-hidden relative">
           <div 
-            className="h-full bg-green-500 transition-all duration-500 ease-in-out"
-            style={{ width: `${progress}%` }}
+            className="h-full bg-black transition-all duration-500 ease-in-out"
+            style={{ 
+              width: `${progress}%`,
+              backgroundImage: 'repeating-linear-gradient(90deg, black, black 10px, white 10px, white 15px)'
+            }}
           ></div>
         </div>
         <div className="text-sm text-gray-600 mt-1">
@@ -109,10 +126,14 @@ const UserFormChat = () => {
             <div className="flex-1 flex flex-col items-center justify-center px-6">
               <div className="text-center mb-8">
                 <h1 className="text-3xl font-normal mb-2">
-                  Let&apos;s start filling your form
+                  {languageCode === "en" ? 
+                    "Let's start filling your form" : 
+                    translations[languageCode] || "Let's start filling your form"}
                 </h1>
                 <p className="text-gray-600">
-                  I&apos;ll guide you through the process step by step
+                  {languageCode === "en" ? 
+                    "I'll guide you through the process step by step" : 
+                    ""}
                 </p>
               </div>
             </div>

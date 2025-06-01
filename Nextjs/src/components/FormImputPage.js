@@ -115,7 +115,11 @@ const FormImputPage = () => {
           </div>
         </>
       ) : (
-        <UserFormChat />
+        <UserFormChat 
+          selectedLanguage={selectedLanguage} 
+          languageCodeMap={languageCodeMap}
+          onExit={() => setShowChat(false)}
+        />
       )}
     </div>
   );

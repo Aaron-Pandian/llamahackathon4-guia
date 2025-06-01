@@ -91,7 +91,7 @@ const UserFormChat = ({ selectedLanguage, languageCodeMap, onExit }) => {
   };
 
   return (
-    <div className="p-5 max-w-[490px] mx-auto font-mono text-center h-[calc(100vh-64px)] flex flex-col cursor-[32px]">
+    <div className="p-5 mx-auto font-mono text-center flex flex-col cursor-[32px]" style={{ width: '766px', height: '460px' }}>
       {/* Exit Button */}
       <div className="absolute top-4 right-4 z-10">
         <button 
@@ -252,29 +252,18 @@ const UserFormChat = ({ selectedLanguage, languageCodeMap, onExit }) => {
 
             <div className="relative">
               <div className="bg-gray-100 rounded-2xl border border-gray-300 p-4">
-                <div className="flex items-center gap-3 mb-3">
-                  <button className="flex items-center gap-2 text-gray-500 hover:text-gray-700">
-                    <Plus className="w-4 h-4" />
-                  </button>
-                  <button
-                    onClick={() => setShowFileUpload(true)}
-                    className="flex items-center gap-2 text-gray-500 hover:text-gray-700"
-                  >
-                    <Paperclip className="w-4 h-4" />
-                    <span className="text-sm">Attach</span>
-                  </button>
-                  <button className="flex items-center gap-2 text-gray-500 hover:text-gray-700">
-                    <Settings className="w-4 h-4" />
-                    <span className="text-sm">Tools</span>
-                  </button>
-                </div>
+                {/* Buttons removed as requested */}
 
                 <div className="relative">
                   <textarea
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
                     onKeyPress={handleKeyPress}
-                    placeholder="Type your response..."
+                    placeholder={languageCode === "en" ? 
+                      "Type your response..." : 
+                      translations[languageCode] ? 
+                        `${translations[languageCode].split(" ")[0]}...` : 
+                        "Type your response..."}
                     className="w-full bg-transparent text-gray-800 placeholder-gray-500 resize-none focus:outline-none text-lg min-h-[60px]"
                     rows={3}
                     disabled={isLoading}

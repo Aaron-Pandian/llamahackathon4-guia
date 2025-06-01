@@ -47,9 +47,9 @@ Leveraging cutting-edge open-source AI, GUIA delivers accessible, step-by-step, 
 _Current codebase showcases a minimum viable product. The demonstration shows how a user can upload an official immigration form to our application, receive specific instruction to fill it out, then provide a completed form ready for signiture and print._
 
 1. Clone Repository
-2. Pip install dependancies in the Python scripts
+2. Pip install dependancies for the Python scripts
 3. Navigate to the Node.JS directory
-4. Install dependencies
+4. Install dependencies for the Node.JS scripts
 5. Update the API Keys for the environment variable - .env file in the root of the Next js folder
 6. Start the development server
 7. Open your browser and visit: [http://localhost:3000](http://localhost:3000)
@@ -57,7 +57,7 @@ _Current codebase showcases a minimum viable product. The demonstration shows ho
 9. Visit the local application on your localhost server and upload the form
 10. Go through the conversation process, answering information that Llama asks: _if you have questions about how to answer bring it up in conversation_
 11. Once the model verifies you have finished, hit complete to download your filled form
-12. The completed form presented is an example of what a completed form would look like: if you want to explore the Python PDF Filler go to the script, and edit the answer information as per the fields listed, run the script to download an updated complete PDF. 
+12. The completed form presented is an example of what a completed form would look like: _if you want to explore the Python PDF Filler go to the script, and edit the answer information as per the fields listed, run the script to download an updated complete PDF_ 
 
 ### Example .env 
 LLAMA_API_KEY=

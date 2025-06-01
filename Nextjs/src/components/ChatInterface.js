@@ -27,6 +27,26 @@ export default function ChatInterface() {
     setAttachedFiles((prev) => prev.filter((file) => file.id !== fileId));
   };
 
+  const startTavusSession = async (lang = "english") => {
+    const context = messages
+      .map((msg) => `${msg.role === "user" ? "User" : "AI"}: ${msg.content}`)
+      .join("\n");
+
+    const response = await fetch("/api/start-tavus-session", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ conversational_context: context, language: lang }),
+    });
+
+    const data = await response.json();
+
+    if (data?.conversation_url) {
+      window.location.href = data.conversation_url;
+    } else {
+      alert("Could not start AI session.");
+    }
+  };
+
   const sendMessage = async () => {
     if (!message.trim() && attachedFiles.length === 0) return;
 
@@ -260,6 +280,10 @@ export default function ChatInterface() {
                         className="p-2 hover:bg-gray-700 rounded-lg disabled:opacity-50"
                       >
                         <Send className="w-5 h-5 text-gray-400" />
+                      </button>
+
+                      <button onClick={() => startTavusSession("spanish")}>
+                        Continue in spanish
                       </button>
                     </div>
                   </div>

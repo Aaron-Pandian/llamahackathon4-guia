@@ -7,6 +7,14 @@ const nextConfig = {
   },
   // Add transpilePackages to ensure compatibility
   transpilePackages: [],
+
+  webpack: (config) => {
+    config.externals.push({
+      fs: "commonjs fs",
+      path: "commonjs path",
+    });
+    return config;
+  },
 };
 
 export default nextConfig;

@@ -2,6 +2,18 @@
 
 import { useState } from "react";
 import { Upload, X, File, Image } from "lucide-react";
+import * as pdfjsLib from 'pdfjs-dist/legacy/build/pdf';
+import pdfjsWorker from 'pdfjs-dist/build/pdf.worker.entry';
+
+pdfjsLib.GlobalWorkerOptions.workerSrc = pdfjsWorker;
+
+const countPdfPages = async (file) => {
+  const arrayBuffer = await file.arrayBuffer();
+  const loadingTask = pdfjsLib.getDocument({ data: arrayBuffer });
+  const pdf = await loadingTask.promise;
+  console.log(pdf.numPages)
+  return pdf.numPages;
+};
 
 export default function FileUpload({ onFileUploaded }) {
   const [isDragging, setIsDragging] = useState(false);
@@ -35,6 +47,17 @@ export default function FileUpload({ onFileUploaded }) {
 
     for (const file of files) {
       try {
+        let pageCount = 1;
+
+        if (file.type === "application/pdf") {
+          try {
+            pageCount = await countPdfPages(file);
+          } catch (err) {
+            console.warn("PDF.js failed to count pages:", err);
+          }
+        }
+
+        // Upload file to server
         const formData = new FormData();
         formData.append("file", file);
 
@@ -49,21 +72,40 @@ export default function FileUpload({ onFileUploaded }) {
 
         const result = await response.json();
 
-        const fileData = {
-          id: result.publicId,
-          name: file.name,
-          url: result.previewImageUrl || result.url, // ✅ Prefer image if available
-          type: result.previewImageUrl ? "image/png" : file.type, // ✅ Force image type for LLaMA
-          size: result.bytes,
-          width: result.width,
-          height: result.height,
-        };
+        // If PDF, create an image per page for LLaMA
+        if (file.type === "application/pdf") {
+          const pageImages = Array.from({ length: pageCount }, (_, i) => ({
+            id: `${result.publicId}-page-${i + 1}`,
+            name: `${file.name} (Page ${i + 1})`,
+            url: `https://res.cloudinary.com/fixmylife/image/upload/pg_${
+              i + 1
+            }/v1/${result.publicId}.png`,
+            type: "image/png",
+            size: file.size / pageCount,
+          }));
 
-        setUploadedFiles((prev) => [...prev, fileData]);
+          setUploadedFiles((prev) => [...prev, ...pageImages]);
 
-        // Callback to parent component
-        if (onFileUploaded) {
-          onFileUploaded(fileData);
+          if (onFileUploaded) {
+            pageImages.forEach((img) => onFileUploaded(img));
+          }
+        } else {
+          // Normal image or file
+          const fileData = {
+            id: result.publicId,
+            name: file.name,
+            url: result.previewImageUrl || result.url,
+            type: result.previewImageUrl ? "image/png" : file.type,
+            size: result.bytes,
+            width: result.width,
+            height: result.height,
+          };
+
+          setUploadedFiles((prev) => [...prev, fileData]);
+
+          if (onFileUploaded) {
+            onFileUploaded(fileData);
+          }
         }
       } catch (error) {
         console.error("Error uploading file:", error);

@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="https://github.com/Aaron-Pandian/llamahackathon4-guia/raw/main/metadata/GUIA_Logo.png" alt="GUIA Logo" width="300">
+<video src="https://github.com/user-attachments/assets/196ba01f-64b4-4f86-b27a-0237f5bb581f" alt="GUIA Logo" width="300">
 
 # GUIA – Immigration Support AI Assistant
 

@@ -105,3 +105,9 @@ Moving forward users will have their own profile where they can view conversatio
 <p align="center">
   <em>GUIA: Empowering Immigrants, One At A Time.</em>
 </p>
+
+---
+
+<div align="center">
+<video src="https://github.com/Aaron-Pandian/llamahackathon4-guia/blob/main/metadata/GUIA_Logo.png" alt="GUIA Logo" width="300">
+</div>

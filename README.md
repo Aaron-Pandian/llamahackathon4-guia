@@ -82,7 +82,7 @@ To further extend application function, we will integrate prompted web search al
 Moving forward users will have their own profile where they can view conversation history and the associated completed documents so they can refer back to. Our application is also coming soon with a status update page that can help users easily view their application status, given their Immigration Application ID through our secured network. 
 
 <div align="center">
-<video src="https://github.com/Aaron-Pandian/llamahackathon4-guia/blob/main/metadata/GUIA_Logo.png" alt="GUIA Logo" width="300">
+<image src="https://github.com/Aaron-Pandian/llamahackathon4-guia/blob/main/metadata/GUIA_Logo.png" alt="GUIA Logo" width="300">
 </div>
 
 ---
